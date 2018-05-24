@@ -5,10 +5,10 @@
 UnionFind木が必要
 */
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
-const int MAX_E = 1000;
 const int MAX_V = 100000;
 
 struct UnionFindTree {
@@ -52,15 +52,15 @@ struct edge {
 
 bool comp(const edge &e1, const edge &e2) { return e1.cost < e2.cost; }
 
-edge es[MAX_E];
+vector<edge> es;
 int V, E;
 
 int kruskal() {
-    sort(es, es + E, comp);
+    sort(es.begin(), es.end(), comp);
     UnionFindTree a;
     a.init(V);
     int res = 0;
-    for (int i = 0; i < E; i++) {
+    for (int i = 0; i < es.size(); i++) {
         edge e = es[i];
         if (!a.same(e.u, e.v)) {
             a.unite(e.u, e.v);
