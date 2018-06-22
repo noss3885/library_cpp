@@ -4,6 +4,7 @@
 */
 #include <vector>
 #include <stack>
+#include <set>
 using namespace std;
 
 typedef pair<int, int> P;
@@ -23,13 +24,13 @@ struct SCC {
     }
 
     void dfs(int x) {
-        if (visited[x]) continue;
+        if (visited[x]) return;
         for (int i : g[x]) dfs(i);
         st.push(x);
     }
 
     void rdfs(int x, int k) {
-        if (num[x] != -1) continue;
+        if (num[x] != -1) return;
         num[x] = k;
         for (int i : gr[x]) rdfs(i, k);
     }
