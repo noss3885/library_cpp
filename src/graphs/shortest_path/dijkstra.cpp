@@ -9,24 +9,30 @@
 #include <queue>
 #include <utility>
 #include <vector>
+#include <climits>
 
 using namespace std;
+typedef pair<int, int> P;  // firstは最短距離,secondは頂点の番号
 
-const int MAX_V = 1000;
-const int INF = 99999999;
+const int MAX_V = int(1e5 + 5);
+const int IINF = INT32_MAX;
 
 struct edge {
-    int to, cost;
+    int from, to, cost;
+    edge(int u, int v, int c) : from(u), to(v), cost(c){};
 };
-typedef pair<int, int> P; // firstは最短距離,secondは頂点の番号
 
-int V;
 vector<edge> G[MAX_V];
 int dmin[MAX_V];
 
+void add_edge(int u, int v, int cost) {
+    G[u].push_back(edge(u, v, cost));
+    G[v].push_back(edge(v, u, cost));
+}
+
 void dijkstra(int s) {
-    priority_queue<P, vector<P>, greater<P> > que; //小さいものから取り出す
-    fill(dmin, dmin + V, INF);
+    priority_queue<P, vector<P>, greater<P> > que;  //小さいものから取り出す
+    fill(dmin, dmin + MAX_V, IINF);
     dmin[s] = 0;
     que.push(P(0, s));
 
@@ -34,10 +40,8 @@ void dijkstra(int s) {
         P p = que.top();
         que.pop();
         int v = p.second;
-        if (dmin[v] < p.first)
-            continue;
-        for (int i = 0; i < G[v].size(); i++) {
-            edge e = G[v][i];
+        if (dmin[v] < p.first) continue;
+        for (auto &e : G[v]) {
             if (dmin[e.to] > dmin[v] + e.cost) {
                 dmin[e.to] = dmin[v] + e.cost;
                 que.push(P(dmin[e.to], e.to));

@@ -6,36 +6,37 @@
 負の辺があるときV回以上更新する
 */
 #include <algorithm>
-
+#include <vector>
+#include <climits>
 using namespace std;
 
-const int MAX_E = 10000;
-const int MAX_V = 100;
-const int INF = 9999999;
+const int MAX_V = 1000;
+const int IINF = INT32_MAX;
 
 struct edge {
     int from, to, cost;
-}; //辺の始点、終点、重み
+    edge(int u, int v, int c) : from(u), to(v), cost(c){};
+};  //辺の始点、終点、重み
 
-edge es[MAX_E]; //辺
+vector<edge> es;  //辺
+int dmin[MAX_V];  //最短距離
 
-int d[MAX_V]; //最短距離
-int V, E;     // Vは頂点数、Eは辺数
+void add_edge(int u, int v, int cost) {
+    es.push_back(edge(u, v, cost));
+}
 
 // S番目の頂点から各頂点への最短経路を求める
 void shortest_path(int s) {
-    fill(d, d + V, INF);
-    d[s] = 0;
+    fill(dmin, dmin + MAX_V, IINF);
+    dmin[s] = 0;
     while (true) {
         bool update = false;
-        for (int i = 0; i < E; i++) {
-            edge e = es[i];
-            if (d[e.from] != INF && d[e.to] > d[e.from] + e.cost) {
-                d[e.to] = d[e.from] + e.cost;
+        for (auto &e : es) {
+            if (dmin[e.from] != IINF && dmin[e.to] > dmin[e.from] + e.cost) {
+                dmin[e.to] = dmin[e.from] + e.cost;
                 update = true;
             }
         }
-        if (!update)
-            break;
+        if (!update) break;
     }
 }
