@@ -17,7 +17,7 @@ int extgcd(int a, int b, int &x, int &y) {
     return d;
 }
 
-int mod_inv(int a, int m) {
+int mod_inv(int a, int m) {  //a^-1 mod m
     int a_, q;
     extgcd(a, m, a_, q);
     return a_;

@@ -6,10 +6,9 @@
 負の閉路があるときd[i][i]<0となるiが存在する
 */
 #include <algorithm>
-
 using namespace std;
 
-#define MAX_V 1000
+const int MAX_V = 1000;
 
 int d[MAX_V][MAX_V];
 int V;

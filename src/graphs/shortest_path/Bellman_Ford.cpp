@@ -11,7 +11,7 @@
 using namespace std;
 
 const int MAX_V = 1000;
-const int IINF = INT32_MAX;
+const int IINF = INT_MAX;
 
 struct edge {
     int from, to, cost;

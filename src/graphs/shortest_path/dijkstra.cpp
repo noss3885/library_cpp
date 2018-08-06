@@ -15,7 +15,7 @@ using namespace std;
 typedef pair<int, int> P;  // firstは最短距離,secondは頂点の番号
 
 const int MAX_V = int(1e5 + 5);
-const int IINF = INT32_MAX;
+const int IINF = INT_MAX;
 
 struct edge {
     int from, to, cost;
