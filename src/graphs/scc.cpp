@@ -25,6 +25,7 @@ struct SCC {
 
     void dfs(int x) {
         if (visited[x]) return;
+        visited[x] = true;
         for (int i : g[x]) dfs(i);
         st.push(x);
     }
