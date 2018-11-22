@@ -8,10 +8,7 @@
 #include <map>
 using namespace std;
 
-map<int, int> zip;
-vector<int> unzip;
-
-void compress(vector<int> &x) {
+void compress(vector<int> &x, map<int, int> &zip, vector<int> &unzip) {
     sort(x.begin(), x.end());
     x.erase(unique(x.begin(), x.end()), x.end());
     unzip.resize(x.size());
