@@ -3,16 +3,18 @@ Union-Find木
 */
 
 #include <utility>
+#include <vector>
 using namespace std;
 
-const int MAX_N = 100000;
-
 struct UnionFindTree {
-    int par[MAX_N];
-    int rank[MAX_N];
-    int siz[MAX_N];
+    vector<int> par;
+    vector<int> rank;
+    vector<int> siz;
 
     void init(int n) {
+        par.resize(n);
+        rank.resize(n);
+        siz.resize(n);
         for (int i = 0; i < n; i++) {
             par[i] = i;
             rank[i] = 0;
