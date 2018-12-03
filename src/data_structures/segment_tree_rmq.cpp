@@ -8,29 +8,45 @@ k番目の値を更新する
 
 #include <algorithm>
 #include <climits>
+#include <vector>
 
 using namespace std;
 
-const int INF = INT32_MAX;
-
 struct SegmentTree {
-    static const int MAX_N = 1 << 17;
-    int N, dat[2 * MAX_N - 1];
+    int N;
+    vector<int> node;
+    static const int INF = INT_MAX;
+
+    SegmentTree(int n_){
+        init(n_);
+    }
 
     void init(int n_) {
         N = 1;
-        while (N < n_)
-            N *= 2; //要素数を2のべき乗にする
-        for (int i = 0; i < 2 * N - 1; i++)
-            dat[i] = INF;
+        while (N < n_) N *= 2;  // 最下段の要素数を2のべき乗にする
+        node.resize(2*N-1, INF);
+    }
+
+    void init(vector<int> &dat){
+        int siz = dat.size();
+        N = 1;
+        while (N < siz) N *= 2;
+        node.resize(2*N-1, INF);
+        // 最下段に値を入れたあと下から順に更新
+        for(int i=0; i<siz; i++){
+            node[i+N-1] = dat[i];
+        }
+        for(int i=N-2; i>=0; i++){
+            node[i] = min(node[2*i+1], node[2*i+2]);
+        }
     }
 
     void update(int k, int a) {
         k += N - 1; //葉の節点の番号
-        dat[k] = a;
+        node[k] = a;
         while (k > 0) { //登りながら上の要素を更新
-            k = (k - 1) / 2;
-            dat[k] = min(dat[k * 2 + 1], dat[k * 2 + 2]);
+            k = (k-1)/2;
+            node[k] = min(node[k*2+1], node[k*2+2]);
         }
     }
     /*
@@ -40,12 +56,12 @@ struct SegmentTree {
     */
     int query(int a, int b, int k, int l, int r) {
         if (r <= a || b <= l)
-            return INF; //[a,b)と[l,r)に共通区間がないならINF
+            return INF;  //[a,b)と[l,r)に共通区間がないならINF
         if (a <= l && r <= b)
-            return dat[k]; //[a,b)が[l,r)を完全に含むならその節点kの値
+            return node[k];  //[a,b)が[l,r)を完全に含むならその節点kの値
         else {
-            int vl = query(a, b, k * 2 + 1, l, (l + r) / 2);
-            int vr = query(a, b, k * 2 + 2, (l + r) / 2, r);
+            int vl = query(a, b, k*2+1, l, (l+r)/2);
+            int vr = query(a, b, k*2+2, (l+r)/2, r);
             return min(vl, vr);
         }
     }
