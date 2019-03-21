@@ -4,15 +4,17 @@ RSQ,RAQ,RUQが可能
 */
 #include <iostream>
 #include <vector>
+#include <climits>
 using namespace std;
 
 typedef long long ll;
 
 struct SqrtDecomposition {
     const ll sqrtN = 512;
+    const ll INF = LONG_LONG_MAX;
     ll N, K;
     vector<ll> data;
-    vector<ll> bucketSum, bucketAdd;
+    vector<ll> bucketSum, bucketAdd, bucketMin;
     vector<bool> lazyFlag;
     vector<ll> lazyUpdate;
     SqrtDecomposition(ll n = 0LL, ll x = 0LL) : N(n) {
@@ -20,6 +22,7 @@ struct SqrtDecomposition {
         data.assign(K*sqrtN, x);
         bucketSum.assign(K, x*sqrtN);
         bucketAdd.assign(K, 0ll);
+        bucketMin.assign(K, x);
         lazyFlag.assign(K, false);
         lazyUpdate.assign(K, x);
     }
@@ -29,6 +32,7 @@ struct SqrtDecomposition {
         data.assign(K*sqrtN, x);
         bucketSum.assign(K, x*sqrtN);
         bucketAdd.assign(K, 0ll);
+        bucketMin.assign(K, x);
         lazyFlag.assign(K, false);
         lazyUpdate.assign(K, x);
     }
@@ -46,11 +50,18 @@ struct SqrtDecomposition {
             ll l = k * sqrtN, r = (k + 1) * sqrtN;
             if (r <= s || t <= l) continue;
             if (s <= l && r <= t) {
+                bucketSum[k] += x * sqrtN;
                 bucketAdd[k] += x;
+                bucketMin[k] += x;
             } else {
+                eval(k);
                 for (ll i = max(s, l); i < min(t, r); ++i) {
                     data[i] += x;
                     bucketSum[k] += x;
+                }
+                ll &minVal = bucketMin[k] = INF;
+                for (ll i = l; i < r; ++i) {
+                    minVal = min(minVal, data[i] + bucketAdd[k]);
                 }
             }
         }
@@ -63,6 +74,7 @@ struct SqrtDecomposition {
             if (s <= l && r <= t) {
                 bucketSum[k] = x * sqrtN;
                 bucketAdd[k] = 0ll;
+                bucketMin[k] = x;
                 lazyFlag[k] = true;
                 lazyUpdate[k] = x;
             } else {
@@ -70,13 +82,15 @@ struct SqrtDecomposition {
                 for (ll i = l; i < r; ++i) {
                     data[i] = data[i] + bucketAdd[k];
                 }
-                bucketAdd[k] = 0;
+                bucketAdd[k] = 0LL;
                 for (ll i = max(s, l); i < min(t, r); ++i) {
                     data[i] = x;
                 }
                 ll &sumVal = bucketSum[k] = 0ll;
+                ll &minVal = bucketMin[k] = INF;
                 for (ll i = l; i < r; ++i) {
                     sumVal = sumVal + data[i];
+                    minVal = min(minVal, data[i]);
                 }
             }
         }
@@ -88,7 +102,7 @@ struct SqrtDecomposition {
             ll l = k * sqrtN, r = (k + 1) * sqrtN;
             if (r <= s || t <= l) continue;
             if (s <= l && r <= t) {
-                sumVal = sumVal + bucketSum[k] + bucketAdd[k] * sqrtN;
+                sumVal = sumVal + bucketSum[k];
             } else {
                 eval(k);
                 for (ll i = max(s, l); i < min(t, r); ++i) {
@@ -97,6 +111,23 @@ struct SqrtDecomposition {
             }
         }
         return sumVal;
+    }
+    // [s, t)
+    ll getMin(ll s, ll t){
+        ll minVal = INF;
+        for(ll k = 0; k < K; ++k){
+            ll l = k*sqrtN, r = (k+1)*sqrtN;
+            if(r <= s || t <= l) continue;
+            if(s <= l && r <= t){
+                minVal = min(minVal, bucketMin[k]);
+            } else {
+                eval(k);
+                for(ll i = max(s,l); i < min(t,r); ++i){
+                    minVal = min(minVal, data[i] + bucketAdd[k]);
+                }
+            }
+        }
+        return minVal;
     }
 };
 
