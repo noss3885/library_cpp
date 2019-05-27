@@ -1,4 +1,6 @@
-
+#include <iostream>
+#include <vector>
+using namespace std;
 
 template <typename Monoid>
 struct LazySegmentTree{
@@ -64,3 +66,29 @@ public:
         return vl + vr;
     }
 };
+
+
+// varify
+typedef long long ll;
+
+// http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E
+int main() {
+    int n, q;
+    cin >> n >> q;
+    LazySegmentTree<ll> seg(n);
+    for(int i=0;i<q;i++){
+        int c;
+        cin >> c;
+        if(c == 0){
+            ll s, t, x;
+            cin >> s >> t >> x;
+            seg.add(s-1,t,x);
+        }
+        else{
+            int s;
+            cin >> s;
+            cout << seg.getSum(s-1,s) << endl;
+        }
+    }
+    return 0;
+}
