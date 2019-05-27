@@ -21,5 +21,8 @@ int extgcd(int a, int b, int &x, int &y) {
 int mod_inv(int a, int m) {  // a^-1 mod m
     int a_, q;
     extgcd(a, m, a_, q);
+    if(a_ < 0){
+        a_ += m;
+    }
     return a_;
 }

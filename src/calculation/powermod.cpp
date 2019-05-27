@@ -3,7 +3,7 @@
 
 int MOD = 1000000007;
 
-long long power(long long x, int n) {
+long long power(long long x, long long n) {
     long long ans = 1;
     while (n > 0) {
         if ((n & 1) == 1) {
