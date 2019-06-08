@@ -3,8 +3,10 @@
 計算量 O(logN)
 x^n べき乗を求める
 */
-long long power(long long x, int n) { 
-	long long ans = 1;
+#include<bits/stdc++.h>
+
+int64_t power(int64_t x, int n) { 
+	int64_t ans = 1;
 	while (n > 0) {
 		if ((n & 1) == 1) {
 			ans = ans * x;

@@ -1,10 +1,12 @@
 // x^n べき乗 計算量O(logN)
 //繰り返し二乗法
 
+#include <bits/stdc++.h>
+
 int MOD = 1000000007;
 
-long long power(long long x, long long n) {
-    long long ans = 1;
+int64_t power(int64_t x, int64_t n) {
+    int64_t ans = 1;
     while (n > 0) {
         if ((n & 1) == 1) {
             ans = ans * x % MOD;
