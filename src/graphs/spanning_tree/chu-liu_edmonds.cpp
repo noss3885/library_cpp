@@ -176,3 +176,5 @@ int main() {
     cout << graph.build() << endl;
     return 0;
 }
+
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2124
