@@ -25,8 +25,8 @@ public:
     void build(vector<Monoid>& v){
         int sz = int(v.size());
         init(sz);
-        for(int i=N-1; i<(N<<1); i++){
-            node[i] = v[i];
+        for(int i=0; i<sz; i++){
+            node[i+N-1] = v[i];
         }
         for(int i=N-2; i>=0; i--){
             node[i] = f(node[i*2+1], node[i*2+2]);
