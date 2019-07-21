@@ -11,7 +11,7 @@ struct Trie{
     struct TrieNode{
         int nxt[char_size];  //子ノードの番号
         vector<int> idx;  // prefixの一致する文字列の番号の集合
-        TrieNode() : id(-1){
+        TrieNode(){
             fill(nxt, nxt+char_size, -1);
         }
     };
