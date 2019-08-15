@@ -13,7 +13,7 @@ struct BIT {
 
     void init(int _n){
         N = _n;
-        bit.resize(_n, 0);
+        bit.resize(_n+1, 0);
     }
 
     int getSum(int i) {  // i番目までの要素の和を求める(1-index)
