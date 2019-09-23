@@ -3,12 +3,14 @@
 
 #include <bits/stdc++.h>
 
-int MOD = 1000000007;
+typedef long long ll;
+ll MOD = 1000000007;
 
-int64_t power(int64_t x, int64_t n) {
-    int64_t ans = 1;
+ll power(ll x, ll n) {
+    x %= MOD;
+    ll ans = 1;
     while (n > 0) {
-        if ((n & 1) == 1) {
+        if (n & 1) {
             ans = ans * x % MOD;
         }
         x = x * x % MOD;  //一周する度にx, x^2, x^4, x^8となる

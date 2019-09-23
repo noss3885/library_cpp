@@ -2,15 +2,18 @@
 フェルマーの小定理を用いた組み合わせ数
 計算量 O(log(N!)) ?
 */
+#include<vector>
+using namespace std;
 
 typedef long long ll;
 
 const ll MAX_N = ll(1e5 + 5);
 const ll MOD = ll(1e9 + 7);
 
-ll factrial[MAX_N], inverse[MAX_N];  //階乗と逆元を保持
+vector<ll> factrial, inverse;  //階乗と逆元を保持
 
 ll mod_power(ll x, ll n) {  //繰り返し二乗法
+    x %= MOD;
     ll res = 1;
     while (n > 0) {
         if (n & 1) {
@@ -23,6 +26,8 @@ ll mod_power(ll x, ll n) {  //繰り返し二乗法
 }
 
 void init(ll n) {
+    factrial.resize(n+1);
+    inverse.resize(n+1);
     factrial[0] = 1;
     inverse[0] = 1;
     for (ll i = 1; i <= n; i++) {
