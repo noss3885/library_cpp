@@ -1,7 +1,3 @@
-/*
-Fast Fourier Transform
-O(NlogN)
-*/
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -74,6 +70,28 @@ vector<Complex> IDFT(vector<Complex> &inversed_a){
 }
 */
 
+// W[i][j] = exp(root(-1)*2*PI*j/(2^i))
+vector<vector<Complex>> W;
+
+void init(int n){
+    int h = 0;
+    for(int i=0;1<<i<n;i++) h++;
+    W.resize(h);
+    for(int i=0;1<<i<n;i++){
+        int d = 1<<i;
+        W[i].resize(d*2+1);
+        for(int j=0;j<=d*2;j++){
+            if((j&1) || i==0){
+                Real theta = 2*PI/(d*2)*j;
+                W[i][j] = Complex(cos(theta), sin(theta));
+            }
+            else{
+                W[i][j] = W[i-1][j>>1];
+            }
+        }
+    }
+}
+
 vector<Complex> FFT(vector<Complex> a, bool rev = false){
     int n = a.size();
     int h = 0;
@@ -86,15 +104,15 @@ vector<Complex> FFT(vector<Complex> a, bool rev = false){
         }
         if(i<j) swap(a[i], a[j]);
     }
-    for(int i=1;i<n;i<<=1){
-        for(int j=0;j<i;j++){
-            Real theta = 2*PI/(i*2)*(rev?-1:1)*j;
-            Complex w = Complex(cos(theta), sin(theta));
-            for(int k=0;k<n;k+=i*2){
+    
+    for(int i=0;1<<i<n;i++){
+        int d = 1<<i;
+        for(int k=0;k<n;k+=d*2){
+            for(int j=0;j<d;j++){
                 Complex s = a[j+k+0];
-                Complex t = a[j+k+i]*w;
+                Complex t = a[j+k+d]*W[i][rev?j:d*2-j];
                 a[j+k+0] = s+t;
-                a[j+k+i] = s-t;
+                a[j+k+d] = s-t;
             }
         }
     }
@@ -107,6 +125,7 @@ vector<Complex> convolute(vector<Complex> &a, vector<Complex> &b){
     int n = 1;
     while(n < deg) n <<= 1;
     a.resize(n); b.resize(n);
+    init(n);
 
     vector<Complex> inversed_a = FFT(a);
     vector<Complex> inversed_b = FFT(b);
