@@ -99,6 +99,7 @@ vector<Complex> FFT(vector<Complex> a, bool rev = false){
     // bitを逆転させ対応する位置とswap
     for(int i=0;i<n;i++){
         int j = 0;
+        // jにiのbitを逆転させたもの
         for(int k=0;k<h;k++){
             j |= (i>>k&1) << (h-1-k);
         }
