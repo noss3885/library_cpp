@@ -1,14 +1,13 @@
 /*
 フェルマーの小定理を用いた組み合わせ数
-計算量 O(log(N!)) ?
+計算量 O(N) ?
 */
 #include<vector>
 using namespace std;
 
-typedef long long ll;
+using ll = long long int;
 
-const ll MAX_N = ll(1e5 + 5);
-const ll MOD = ll(1e9 + 7);
+constexpr ll MOD = ll(1e9 + 7);
 
 vector<ll> factrial, inverse;  //階乗と逆元を保持
 
