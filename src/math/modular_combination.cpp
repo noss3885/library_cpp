@@ -30,8 +30,8 @@ void init(ll n) {
     factrial[0] = 1;
     inverse[0] = 1;
     for (ll i = 1; i <= n; i++) {
-        factrial[i] = (factrial[i - 1] * i) % MOD;  //階乗を求める
-        inverse[i] = mod_power(factrial[i], MOD - 2) % MOD;  //オイラーの定理で逆元を求める
+        factrial[i] = (factrial[i - 1] * i) % MOD;
+        inverse[i] = mod_power(factrial[i], MOD - 2);
     }
 }
 
