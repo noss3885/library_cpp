@@ -39,10 +39,10 @@ void dfs(int u, int par, int &k){
     }
 }
 
-void lowlink(int n){
-    ord.resize(n, -1);
-    low.resize(n);
-    is_articulation.resize(n, false);
+void lowlink(){
+    ord.resize(g.size(), -1);
+    low.resize(g.size());
+    is_articulation.resize(g.size(), false);
     int k = 0;
     dfs(0, -1, k);
 }
