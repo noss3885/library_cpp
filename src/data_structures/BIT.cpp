@@ -5,11 +5,10 @@ BIT
 ある要素に加算する
 */
 #include<vector>
-using namespace std;
 
 struct BIT {
     int N;
-    vector<int> bit;
+    std::vector<int> bit;
 
     void init(int _n){
         N = _n;
