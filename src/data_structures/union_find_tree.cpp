@@ -1,47 +1,41 @@
-/*
-Union-Find木
-*/
-
 #include <utility>
 #include <vector>
-using namespace std;
 
 struct UnionFindTree {
-    vector<int> par;
-    vector<int> rank;
-    vector<int> siz;
+    int N;
+    std::vector<int> par;
+    std::vector<int> siz;
 
+    UnionFindTree() = default;
+    UnionFindTree(int n) : N(n) {init(n);}
     void init(int n) {
         par.resize(n);
-        rank.resize(n);
-        siz.resize(n);
+        siz.assign(n,1);
         for (int i = 0; i < n; i++) {
             par[i] = i;
-            rank[i] = 0;
-            siz[i] = 1;
         }
     }
-    int find(int x) {
-        if (par[x] == x) {
-            return x;
-        } else {
-            return par[x] = find(par[x]);
-        }
+    int root(int x) {
+        if (par[x] == x) return x;
+        else return par[x] = root(par[x]);
     }
-    void unite(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if (x == y) return;
-        if (rank[x] < rank[y]) swap(x, y);
-        if (rank[x] == rank[y]) rank[x]++;
+    bool unite(int x, int y) {
+        x = root(x);
+        y = root(y);
+        if (x == y) return false;
+        if (siz[x] < siz[y]) std::swap(x, y);
         par[y] = x;
         siz[x] += siz[y];
+        N--;
+        return true;
     }
-    bool is_same(int x, int y) {
-        return find(x) == find(y);
+    bool same(int x, int y) {
+        return root(x) == root(y);
     }
     int size(int x) {
-        x = find(x);
-        return siz[x];
+        return siz[root(x)];
+    }
+    int count(){
+        return N;
     }
 };
