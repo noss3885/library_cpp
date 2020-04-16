@@ -1,30 +1,25 @@
-/*
-BIT
-計算量(クエリ) O(log(n))
-区間の和を求める
-ある要素に加算する
-*/
-#include<vector>
+#include <vector>
 
+template <typename T>
 struct BIT {
     int N;
-    std::vector<int> bit;
+    std::vector<T> bit;
 
-    void init(int _n){
-        N = _n;
-        bit.resize(_n+1, 0);
+    BIT() = default;
+    BIT(int n) {init(n);}
+    void init(int n){
+        N = n;
+        bit.assign(n+1, 0);
     }
-
-    int getSum(int i) {  // i番目までの要素の和を求める(1-index)
-        int sum = 0;
+    T getSum(int i) {  // i番目までの要素の和を求める(1-index)
+        T sum = 0;
         while (i > 0) {
             sum += bit[i];
             i -= i & -i;
         }
         return sum;
     }
-
-    void add(int i, int x) {  // i番目の要素にxを加算
+    void add(int i, T x) {  // i番目の要素にxを加算
         while (i <= N) {
             bit[i] += x;
             i += i & -i;
