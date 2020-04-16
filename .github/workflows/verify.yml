@@ -16,4 +16,4 @@ jobs:
       run: pip3 install -U git+https://github.com/kmyk/online-judge-verify-helper.git@master
 
     - name: Run tests
-      run: oj-verify run all
+      run: oj-verify run
