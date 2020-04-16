@@ -1,16 +1,12 @@
-#include<iostream>
-#include<vector>
+#include <vector>
 #include <functional>
-using namespace std;
-
-// BEGIN
 
 template <typename Monoid>
 struct SegmentTree{
 private:
-    using F = function<Monoid(Monoid, Monoid)>;
+    using F = std::function<Monoid(Monoid, Monoid)>;
     int N;
-    vector<Monoid> node;
+    std::vector<Monoid> node;
     F f;
     Monoid e;  // identity element
 
@@ -22,7 +18,7 @@ public:
         while(N < sz) N <<= 1;
         node.assign(2*N-1, e);
     }
-    void build(vector<Monoid>& v){
+    void build(std::vector<Monoid>& v){
         int sz = int(v.size());
         init(sz);
         for(int i=0; i<sz; i++){
@@ -51,27 +47,3 @@ public:
         return f(vl, vr);
     }
 };
-
-// END
-
-// varify
-// http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A
-int main() {
-    auto f = [=](int a, int b){return min(a, b);};
-    SegmentTree<int> seg(f,INT_MAX);
- 
-    int n, q;
-    cin >> n >> q;
-    seg.init(n);
-    for(int i=0; i<q; i++){
-        int c, x, y;
-        cin >> c >> x >> y;
-        if(c){
-            cout << seg.query(x, y+1) << endl;
-        }
-        else{
-            seg.update(x, y);
-        }
-    }
-    return 0;
-}
