@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1163"
 #include <iostream>
 #include <numeric>
 #include "../../src/graphs/ford_fulkerson.cpp"
