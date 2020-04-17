@@ -1,4 +1,4 @@
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_A"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2991"
 #include <iostream>
 #include "../../src/graphs/strongly_connected_components.cpp"
 
