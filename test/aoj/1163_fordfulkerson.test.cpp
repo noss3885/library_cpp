@@ -24,7 +24,7 @@ int main() {
         for(int i=0;i<n;i++){
             G.add_edge(i+m,T,1);
         }
-        std::cout << G.max_flow(S, T+1) << std::endl;
+        std::cout << G.max_flow(S, T) << std::endl;
     }
     return 0;
 }
