@@ -1,7 +1,8 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2748"
-#define ERROR "1e-5"
 #include <iostream>
 #include "../../src/graphs/strongly_connected_components.cpp"
+
+#define ERROR "1e-5"
 
 int main() {
     while (1) {
@@ -26,7 +27,7 @@ int main() {
         for (int i=0; i<G.count(); i++) {
             if (G.tr[i].empty()) {
                 double q = 1;
-                for (int idx : G.g2i[G[i]]) {
+                for (int idx : G.g2i[i]) {
                     q *= p[idx];
                 }
                 ans *= (1 - q);
