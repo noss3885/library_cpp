@@ -1,5 +1,5 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2748"
-#define ERROR 1e-5
+#define ERROR "1e-5"
 #include <iostream>
 #include "../../src/graphs/strongly_connected_components.cpp"
 
