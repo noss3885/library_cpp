@@ -1,18 +1,13 @@
-/*
-強連結成分分解(Strongly-Connected-Components)
-計算量 O(V+E)
-*/
 #include <vector>
 #include <algorithm>
 #include <stack>
-using namespace std;
 
 struct SCC {
-    int N;
-    vector<vector<int> > g, gr, g2i, t;
-    vector<bool> visited;
-    vector<int> i2g;
-    stack<int> order;
+    int N, p;
+    std::vector<std::vector<int> > g, gr, g2i, t, tr;
+    std::vector<bool> visited;
+    std::vector<int> i2g;
+    std::stack<int> order;
 
     SCC(){}
     SCC(int n){init(n);}
@@ -45,14 +40,15 @@ struct SCC {
     }
 
     void build() {
-        fill(visited.begin(), visited.end(), false);
-        fill(i2g.begin(), i2g.end(), -1);
+        std::fill(visited.begin(), visited.end(), false);
+        std::fill(i2g.begin(), i2g.end(), -1);
         for (int i = 0; i < N; i++) dfs(i);
-        int p = 0;
-        fill(visited.begin(), visited.end(), false);
+        p = 0;
+        std::fill(visited.begin(), visited.end(), false);
         while (!order.empty()) {
-            rdfs(order.top(), p++);
+            int idx = order.top();
             order.pop();
+            if(!visited[idx]) rdfs(idx, p++);
         }
         g2i.clear();
         g2i.resize(p);
@@ -60,26 +56,31 @@ struct SCC {
             g2i[i2g[i]].push_back(i);
         }
         t.resize(p);
+        tr.resize(p);
         for(int i=0;i<N;i++){
             for (auto &to : g[i]) {
                 int x = i2g[i], y = i2g[to];
                 if (x == y) continue;
                 t[x].push_back(y);
+                tr[y].push_back(x);
             }
         }
         for(int i=0;i<p;i++){
             sort(t[i].begin(), t[i].end());
             t[i].erase(unique(t[i].begin(), t[i].end()),t[i].end());
+            sort(tr[i].begin(), tr[i].end());
+            tr[i].erase(unique(tr[i].begin(), tr[i].end()),tr[i].end());
         }
     }
-    int operator[](int k) const{return i2g[k];};
+    int count() const {return p;}
+    int operator[](int k) const {return i2g[k];}
 };
 
 struct TwoSAT {
     int N;
     SCC scc;
-    vector<int> v;
-    TwoSAT(){}
+    std::vector<int> v;
+    TwoSAT() = default;
     TwoSAT(int n):N(n),scc(n*2){}
     void init(int n){
         N = n;
@@ -132,5 +133,5 @@ struct TwoSAT {
         }
         return ok;
     }
-    int operator[](int k) const{return v[k];};
+    int operator[](int k) const {return v[k];};
 };
