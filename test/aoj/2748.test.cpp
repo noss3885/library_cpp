@@ -25,7 +25,7 @@ int main() {
         for (int i=0; i<G.count(); i++) {
             if (G.tr[i].empty()) {
                 double q = 1;
-                for (int idx : G.g2i[i]) {
+                for (int idx : G.g2i[G[i]]) {
                     q *= p[idx];
                 }
                 ans *= (1 - q);
