@@ -20,15 +20,17 @@ int main() {
     // BFS
     int prev = 0;
     ll ans = 0;
+    std::vector<bool> visited(n,false);
     std::queue<int> que;
-    que.push(0);
+    que.push(lca.root);
     while(!que.empty()){
         int idx = que.front();
         que.pop();
+        visited[idx] = true;
         ans += lca.dist(prev, idx);
         prev = idx;
         for(auto e : lca.graph[idx]){
-            que.push(e.to);
+            if(!visited[e.to]) que.push(e.to);
         }
     }
     std::cout << ans << std::endl;
