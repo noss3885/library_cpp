@@ -16,6 +16,13 @@ struct FordFulkerson{
 
     FordFulkerson() = default;
     FordFulkerson(int n) : G(n), used(n) {}
+    
+    void init(int n){
+        G.clear();
+        G.resize(n);
+        used.resize(n);
+    }
+
     void add_edge(int from, int to, T cap, bool directed = true){
         G[from].emplace_back(to, cap, int(G[to].size()));
         G[to].emplace_back(from, directed?0:cap, int(G[from].size())-1);
@@ -39,7 +46,6 @@ struct FordFulkerson{
     }
 
     T max_flow(int s, int t, T lim){
-        used.resize(G.size());
         T flow = 0;
         while(1){
             std::fill(used.begin(), used.end(), false);
@@ -50,5 +56,5 @@ struct FordFulkerson{
         }
         return flow;
     }
-    T max_flow(int s, int t){return max_flow(s, t, std::numeric_limits<T>::max());}
+    T max_flow(int s, int t){return max_flow(s, t, std::numeric_limits<T>::max()/2);}
 };
