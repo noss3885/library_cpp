@@ -1,55 +1,7 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <vector>
+#include "../data_structures/segmenttree.cpp"
 
-template <typename Monoid>
-struct SegmentTree{
-private:
-    using F = function<Monoid(Monoid, Monoid)>;
-    int N{};
-    vector<Monoid> node;
-    F f;
-    Monoid e;  // identity element
-
-public:
-    SegmentTree() = default;
-    SegmentTree(F f, Monoid e):f(f), e(e){}
-    void init(int sz){
-        N = 1;
-        while(N < sz) N <<= 1;
-        node.assign(2*N-1, e);
-    }
-    void build(vector<Monoid>& v){
-        int sz = int(v.size());
-        init(sz);
-        for(int i=0; i<sz; i++){
-            node[i+N-1] = v[i];
-        }
-        for(int i=N-2; i>=0; i--){
-            node[i] = f(node[i*2+1], node[i*2+2]);
-        }
-    }
-    void update(int k, Monoid x){
-        k += N-1;
-        node[k] = x;
-        while(k > 0){
-            k = (k-1)/2;
-            node[k] = f(node[2*k+1], node[2*k+2]);
-        }
-    }
-    // [a,b)
-    Monoid query(int a, int b){return query(a, b, 0, 0, N);}
-    Monoid query(int a, int b, int k, int l, int r){
-        if(b <= l || r <= a) return e;
-        if(a <= l && r <= b) return node[k];
-        Monoid vl, vr;
-        vl = query(a, b, 2*k+1, l, (l+r)/2);
-        vr = query(a, b, 2*k+2, (l+r)/2, r);
-        return f(vl, vr);
-    }
-};
-
-class LCA {
-private:
+struct LCA {
     using P = std::pair<int,int>;
     using CostType = int;
     const int INF = 1 << 30;
@@ -63,6 +15,7 @@ private:
     std::vector<std::vector<edge> > graph;
     std::vector<int> depth, vs, ds, us;  // ds[v]:go down to v, us[v]:go up from v
 
+private:
     SegmentTree<P> rmq = SegmentTree<P>([](P a, P b){return min(a,b);},P(INF,-1));
     SegmentTree<CostType> rsq = SegmentTree<CostType>([](CostType a, CostType b){return a+b;}, 0);
 
@@ -129,31 +82,3 @@ public:
         rsq.update(us[v], -cost);
     }
 };
-
-// END
-
-// varify
-// https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C
-
-int main() {
-    int n, q;
-    cin >> n;
-    LCA lca(n);
-    for(int i=0;i<n;i++){
-        int k;
-        cin >> k;
-        for(int j=0;j<k;j++){
-            int c;
-            cin >> c;
-            lca.add_edge(i,c);
-        }
-    }
-    lca.build();
-    cin >> q;
-    for(int i=0;i<q;i++){
-        int u, v;
-        cin >> u >> v;
-        cout << lca.query(u, v) << endl;
-    }
-    return 0;
-}
