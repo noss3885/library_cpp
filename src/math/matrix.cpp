@@ -6,9 +6,10 @@
 #include <vector>
 #include <cassert>
 
-using ll = long long;
 
 // BEGIN
+
+using ll = long long int;
 
 template <typename T>
 struct Matrix{
@@ -19,6 +20,7 @@ struct Matrix{
 
     Matrix() = default;
     Matrix(size_t r, size_t c):m_rows(r),m_columns(c),mat(r,vec(c)){}
+    Matrix(size_t r, size_t c, T e):m_rows(r),m_columns(c),mat(r,vec(c, e)){}
 
     size_t rows() const {return m_rows;}
     size_t columns() const {return m_columns;}
@@ -43,7 +45,7 @@ struct Matrix{
         return *this;
     }
     Matrix &operator*=(const Matrix& rhs) {
-        assert(m_columns != rhs.rows());
+        assert(m_columns == rhs.rows());
         Matrix res(m_rows, rhs.columns());
         for(int i=0; i<m_rows; i++){
             for(int k=0; k<rhs.rows(); k++){
@@ -76,17 +78,17 @@ struct Matrix{
         }
         return os;
     }
-    Matrix identity(size_t n){
-        Matrix res(n,n);
-        for(int i=0;i<int(n);i++) res[i][i] = T().identity();
+    static Matrix identity(size_t n, T e0, T e1){
+        Matrix res(n, n, e0);
+        for(int i=0;i<int(n);i++) res[i][i] = e1;
         return res;
     }
 };
 
-// 累乗 O(N^3 log k)
+// 行列累乗 O(N^3 log k)
 template <typename T>
-T mat_power(T x, ll k){
-    T res = T().identity(x.rows());
+Matrix<T> mat_power(Matrix<T> x, ll k, T e0, T e1){
+    Matrix<T> res = Matrix::identity(x.rows(), e0, e1);
     while(k > 0){
         if(k&1LL){
             res = x*res;
