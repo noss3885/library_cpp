@@ -1,5 +1,4 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2991"
-#define IGNORE
 #include <iostream>
 #include "../../src/graphs/strongly_connected_components.cpp"
 
