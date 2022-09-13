@@ -6,15 +6,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/2748.test.cpp
     title: test/aoj/2748.test.cpp
-  - icon: ':x:'
-    path: test/aoj/2991.test.cpp
-    title: test/aoj/2991.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/GRL_4_A_SCC.test.cpp
     title: test/aoj/GRL_4_A_SCC.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"src/graphs/strongly_connected_components.cpp\"\n#include\
@@ -119,10 +116,9 @@ data:
   path: src/graphs/strongly_connected_components.cpp
   requiredBy: []
   timestamp: '2020-04-17 13:00:33+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/GRL_4_A_SCC.test.cpp
-  - test/aoj/2991.test.cpp
   - test/aoj/2748.test.cpp
 documentation_of: src/graphs/strongly_connected_components.cpp
 layout: document

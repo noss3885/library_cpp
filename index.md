@@ -61,7 +61,7 @@ data:
     - icon: ':warning:'
       path: src/graphs/min_cost_flow.cpp
       title: src/graphs/min_cost_flow.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: src/graphs/strongly_connected_components.cpp
       title: src/graphs/strongly_connected_components.cpp
   - name: src/graphs/shortest_path
@@ -166,9 +166,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/2748.test.cpp
       title: test/aoj/2748.test.cpp
-    - icon: ':x:'
-      path: test/aoj/2991.test.cpp
-      title: test/aoj/2991.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/DSL_1_A.test.cpp
       title: test/aoj/DSL_1_A.test.cpp
