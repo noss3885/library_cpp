@@ -2,9 +2,9 @@
 平方分割
 RSQ,RAQ,RUQが可能
 */
+#include <climits>
 #include <iostream>
 #include <vector>
-#include <climits>
 using namespace std;
 
 typedef long long ll;
@@ -19,18 +19,18 @@ struct SqrtDecomposition {
     vector<ll> lazyUpdate;
     SqrtDecomposition(ll n = 0LL, ll x = 0LL) : N(n) {
         K = (N + sqrtN - 1) / sqrtN;
-        data.assign(K*sqrtN, x);
-        bucketSum.assign(K, x*sqrtN);
+        data.assign(K * sqrtN, x);
+        bucketSum.assign(K, x * sqrtN);
         bucketAdd.assign(K, 0ll);
         bucketMin.assign(K, x);
         lazyFlag.assign(K, false);
         lazyUpdate.assign(K, x);
     }
-    void init(ll n, ll x = 0LL){
+    void init(ll n, ll x = 0LL) {
         N = n;
         K = (N + sqrtN - 1) / sqrtN;
-        data.assign(K*sqrtN, x);
-        bucketSum.assign(K, x*sqrtN);
+        data.assign(K * sqrtN, x);
+        bucketSum.assign(K, x * sqrtN);
         bucketAdd.assign(K, 0ll);
         bucketMin.assign(K, x);
         lazyFlag.assign(K, false);
@@ -59,7 +59,7 @@ struct SqrtDecomposition {
                     data[i] += x;
                     bucketSum[k] += x;
                 }
-                ll &minVal = bucketMin[k] = INF;
+                ll& minVal = bucketMin[k] = INF;
                 for (ll i = l; i < r; ++i) {
                     minVal = min(minVal, data[i] + bucketAdd[k]);
                 }
@@ -86,8 +86,8 @@ struct SqrtDecomposition {
                 for (ll i = max(s, l); i < min(t, r); ++i) {
                     data[i] = x;
                 }
-                ll &sumVal = bucketSum[k] = 0ll;
-                ll &minVal = bucketMin[k] = INF;
+                ll& sumVal = bucketSum[k] = 0ll;
+                ll& minVal = bucketMin[k] = INF;
                 for (ll i = l; i < r; ++i) {
                     sumVal = sumVal + data[i];
                     minVal = min(minVal, data[i]);
@@ -113,16 +113,16 @@ struct SqrtDecomposition {
         return sumVal;
     }
     // [s, t)
-    ll getMin(ll s, ll t){
+    ll getMin(ll s, ll t) {
         ll minVal = INF;
-        for(ll k = 0; k < K; ++k){
-            ll l = k*sqrtN, r = (k+1)*sqrtN;
-            if(r <= s || t <= l) continue;
-            if(s <= l && r <= t){
+        for (ll k = 0; k < K; ++k) {
+            ll l = k * sqrtN, r = (k + 1) * sqrtN;
+            if (r <= s || t <= l) continue;
+            if (s <= l && r <= t) {
                 minVal = min(minVal, bucketMin[k]);
             } else {
                 eval(k);
-                for(ll i = max(s,l); i < min(t,r); ++i){
+                for (ll i = max(s, l); i < min(t, r); ++i) {
                     minVal = min(minVal, data[i] + bucketAdd[k]);
                 }
             }
@@ -131,97 +131,92 @@ struct SqrtDecomposition {
     }
 };
 
-
 // varify
 
 // http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_D
-void DSL_2_D(){
+void DSL_2_D() {
     int n, q;
     cin >> n >> q;
-    SqrtDecomposition ruq(n, (1LL<<31)-1);
-    for(int i=0; i<q; i++){
+    SqrtDecomposition ruq(n, (1LL << 31) - 1);
+    for (int i = 0; i < q; i++) {
         int c;
         cin >> c;
-        if(c){
+        if (c) {
             int k;
             cin >> k;
-            cout << ruq.getSum(k,k+1) << endl;
-        }
-        else{
+            cout << ruq.getSum(k, k + 1) << endl;
+        } else {
             int s, t, x;
             cin >> s >> t >> x;
-            ruq.update(s,t+1,x);
+            ruq.update(s, t + 1, x);
         }
     }
 }
 
 // http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E
-void DSL_2_E(){
+void DSL_2_E() {
     int n, q;
     cin >> n >> q;
     SqrtDecomposition ruq(n);
-    for(int i=0; i<q; i++){
+    for (int i = 0; i < q; i++) {
         int c;
         cin >> c;
-        if(c){
+        if (c) {
             int k;
             cin >> k;
-            cout << ruq.getSum(k,k+1) << endl;
-        }
-        else{
+            cout << ruq.getSum(k, k + 1) << endl;
+        } else {
             int s, t, x;
             cin >> s >> t >> x;
-            ruq.add(s,t+1,x);
+            ruq.add(s, t + 1, x);
         }
     }
 }
 
 // http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G
-void DSL_2_G(){
+void DSL_2_G() {
     int n, q;
     cin >> n >> q;
     SqrtDecomposition ruq(n);
-    for(int i=0; i<q; i++){
+    for (int i = 0; i < q; i++) {
         int c;
         cin >> c;
-        if(c){
+        if (c) {
             int s, t;
             cin >> s >> t;
-            cout << ruq.getSum(s,t+1) << endl;
-        }
-        else{
+            cout << ruq.getSum(s, t + 1) << endl;
+        } else {
             int s, t, x;
             cin >> s >> t >> x;
-            ruq.add(s,t+1,x);
+            ruq.add(s, t + 1, x);
         }
     }
 }
 
 // http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_I
-void DSL_2_I(){
+void DSL_2_I() {
     int n, q;
     cin >> n >> q;
     SqrtDecomposition ruq(n);
-    for(int i=0; i<q; i++){
+    for (int i = 0; i < q; i++) {
         int c;
         cin >> c;
-        if(c){
+        if (c) {
             int s, t;
             cin >> s >> t;
-            cout << ruq.getSum(s,t+1) << endl;
-        }
-        else{
+            cout << ruq.getSum(s, t + 1) << endl;
+        } else {
             int s, t, x;
             cin >> s >> t >> x;
-            ruq.update(s,t+1,x);
+            ruq.update(s, t + 1, x);
         }
     }
 }
 
-int main(){
-    //DSL_2_D();
-    //DSL_2_E();
-    //DSL_2_G();
-    //DSL_2_I();
+int main() {
+    // DSL_2_D();
+    // DSL_2_E();
+    // DSL_2_G();
+    // DSL_2_I();
     return 0;
 }

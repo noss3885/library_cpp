@@ -4,7 +4,8 @@ AccessModifierOffset: -2
 ColumnLimit: 0
 
 # for competitive programing
+AllowShortBlocksOnASingleLine: Always
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
-AlwaysBreakTemplateDeclarations: false
+AlwaysBreakTemplateDeclarations: No

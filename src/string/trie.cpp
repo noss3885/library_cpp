@@ -1,31 +1,31 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
 using namespace std;
 // BEGIN
 
 // char_size:文字の種類数, margin:先頭文字
 template <int char_size, int margin>
-struct Trie{
-    struct TrieNode{
-        int nxt[char_size];  //子ノードの番号
-        vector<int> idx;  // prefixの一致する文字列の番号の集合
-        TrieNode(){
-            fill(nxt, nxt+char_size, -1);
+struct Trie {
+    struct TrieNode {
+        int nxt[char_size];  // 子ノードの番号
+        vector<int> idx;     // prefixの一致する文字列の番号の集合
+        TrieNode() {
+            fill(nxt, nxt + char_size, -1);
         }
     };
 
     vector<TrieNode> nodes;
-    Trie(){
+    Trie() {
         nodes.push_back(TrieNode());
     };
-    void add(const string &str, int id){
+    void add(const string& str, int id) {
         int node_index = 0;
         nodes[0].idx.push_back(id);
-        for(int i=0;i<int(str.size());i++){
+        for (int i = 0; i < int(str.size()); i++) {
             int c = str[i] - margin;
-            if(nodes[node_index].nxt[c] == -1){
+            if (nodes[node_index].nxt[c] == -1) {
                 nodes[node_index].nxt[c] = int(nodes.size());
                 nodes.push_back(TrieNode());
             }
@@ -34,15 +34,15 @@ struct Trie{
         }
     }
     // 文字列の追加
-    void add(const string &str){
+    void add(const string& str) {
         add(str, int(nodes[0].idx.size()));
     }
     // 対応するnode番号の検索
-    int find(const string &str){
+    int find(const string& str) {
         int node_index = 0;
-        for(int i=0;i<int(str.size());i++){
+        for (int i = 0; i < int(str.size()); i++) {
             int c = str[i] - margin;
-            if(nodes[node_index].nxt[c] == -1){
+            if (nodes[node_index].nxt[c] == -1) {
                 return -1;
             }
             node_index = nodes[node_index].nxt[c];
@@ -63,21 +63,21 @@ vector<int> ls;
 int main() {
     cin >> N >> Q;
     words.resize(N);
-    for(int i=0;i<N;i++) cin >> words[i];
+    for (int i = 0; i < N; i++) cin >> words[i];
     sort(words.begin(), words.end());
     // suffix trie木の構築
-    for(int i=0;i<N;i++){
+    for (int i = 0; i < N; i++) {
         reverse(words[i].begin(), words[i].end());
         trie.add(words[i]);
         reverse(words[i].begin(), words[i].end());
     }
     string pre, suf;
-    for(int i=0;i<Q;i++){
+    for (int i = 0; i < Q; i++) {
         cin >> pre >> suf;
         // suffixの一致するnodeを探索
-        reverse(suf.begin(),suf.end());
+        reverse(suf.begin(), suf.end());
         int id = -1;
-        if((id = trie.find(suf)) < 0 || id >= trie.nodes.size()){
+        if ((id = trie.find(suf)) < 0 || id >= trie.nodes.size()) {
             cout << 0 << endl;
             continue;
         }

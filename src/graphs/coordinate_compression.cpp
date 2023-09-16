@@ -4,11 +4,11 @@
 座標の範囲が広いとき座標の大小や位置関係を維持しながら範囲を狭める
 */
 #include <algorithm>
-#include <vector>
 #include <map>
+#include <vector>
 using namespace std;
 
-void compress(vector<int> &x, map<int, int> &zip, vector<int> &unzip) {
+void compress(vector<int>& x, map<int, int>& zip, vector<int>& unzip) {
     sort(x.begin(), x.end());
     x.erase(unique(x.begin(), x.end()), x.end());
     unzip.resize(x.size());

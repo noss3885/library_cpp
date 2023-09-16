@@ -6,18 +6,18 @@ int main() {
     int n, q;
     std::cin >> n;
     LCA lca(n);
-    for(int i=0;i<n;i++){
+    for (int i = 0; i < n; i++) {
         int k;
         std::cin >> k;
-        for(int j=0;j<k;j++){
+        for (int j = 0; j < k; j++) {
             int c;
             std::cin >> c;
-            lca.add_edge(i,c);
+            lca.add_edge(i, c);
         }
     }
     lca.build();
     std::cin >> q;
-    for(int i=0;i<q;i++){
+    for (int i = 0; i < q; i++) {
         int u, v;
         std::cin >> u >> v;
         std::cout << lca.query(u, v) << std::endl;

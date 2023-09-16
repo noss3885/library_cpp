@@ -6,13 +6,13 @@ int main() {
     int n, q;
     std::cin >> n >> q;
     UnionFindTree g(n);
-    for(int i=0;i<q;i++){
+    for (int i = 0; i < q; i++) {
         int c, x, y;
         std::cin >> c >> x >> y;
-        if(c){
-            std::cout << (g.same(x,y)?1:0) << std::endl;
-        }else{
-            g.unite(x,y);
+        if (c) {
+            std::cout << (g.same(x, y) ? 1 : 0) << std::endl;
+        } else {
+            g.unite(x, y);
         }
     }
     return 0;

@@ -11,11 +11,11 @@ int main() {
         std::cin >> N;
         if (N == 0) break;
         SCC G(N);
-        for(int i=0; i<N; i++) {
+        for (int i = 0; i < N; i++) {
             std::cin >> p[i];
             int m;
             std::cin >> m;
-            for(int j=0; j<m; j++) {
+            for (int j = 0; j < m; j++) {
                 int a;
                 std::cin >> a;
                 a--;
@@ -24,7 +24,7 @@ int main() {
         }
         G.build();
         double ans = 1;
-        for (int i=0; i<G.count(); i++) {
+        for (int i = 0; i < G.count(); i++) {
             if (G.tr[i].empty()) {
                 double q = 1;
                 for (int idx : G.g2i[i]) {

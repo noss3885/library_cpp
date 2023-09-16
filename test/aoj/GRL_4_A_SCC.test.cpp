@@ -6,10 +6,10 @@ int main() {
     int V, E;
     std::cin >> V >> E;
     SCC G(V);
-    for(int i=0;i<E;i++){
+    for (int i = 0; i < E; i++) {
         int s, t;
         std::cin >> s >> t;
-        G.add_edge(s,t);
+        G.add_edge(s, t);
     }
     G.build();
     std::cout << (G.count() < V) << std::endl;
