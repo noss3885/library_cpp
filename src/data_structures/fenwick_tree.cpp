@@ -1,28 +1,28 @@
 #include <vector>
 
 template <typename T>
-struct BIT {
-    int N;
-    std::vector<T> bit;
+struct FenwickTree {
+    int len;
+    std::vector<T> node;
 
-    BIT() = default;
-    BIT(int n) {init(n);}
-    void init(int n){
-        N = n;
-        bit.assign(n+1, 0);
+    FenwickTree() = default;
+    FenwickTree(int n) : len(n), node(n, 0) {}
+    void init(int n) {
+        len = n;
+        node.assign(n, 0);
     }
-    T getSum(int i) {  // i番目までの要素の和を求める(1-index)
-        T sum = 0;
-        while (i > 0) {
-            sum += bit[i];
-            i -= i & -i;
+    // sum data[0,i)
+    T sum(int i) {
+        T res(0);
+        for (int k = i; k > 0; k -= k & -k) {
+            res += node[k - 1];
         }
-        return sum;
+        return res;
     }
-    void add(int i, T x) {  // i番目の要素にxを加算
-        while (i <= N) {
-            bit[i] += x;
-            i += i & -i;
+    // add x to data[i]
+    void add(int i, T x) {
+        for (int k = i + 1; k <= len; k += k & -k) {
+            node[k - 1] += x;
         }
     }
 };
