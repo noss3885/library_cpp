@@ -1,40 +1,20 @@
 ---
 data:
   libraryCategories:
-  - name: src/DP
-    pages:
-    - icon: ':warning:'
-      path: src/DP/LCS.cpp
-      title: src/DP/LCS.cpp
-    - icon: ':warning:'
-      path: src/DP/LIS.cpp
-      title: src/DP/LIS.cpp
   - name: src/data_structures
     pages:
     - icon: ':heavy_check_mark:'
-      path: src/data_structures/BIT.cpp
-      title: src/data_structures/BIT.cpp
-    - icon: ':warning:'
-      path: src/data_structures/RAQ.cpp
-      title: src/data_structures/RAQ.cpp
-    - icon: ':warning:'
-      path: src/data_structures/RMQ.cpp
-      title: src/data_structures/RMQ.cpp
+      path: src/data_structures/fenwick_tree.cpp
+      title: src/data_structures/fenwick_tree.cpp
     - icon: ':heavy_check_mark:'
       path: src/data_structures/lazy_segmenttree.cpp
       title: src/data_structures/lazy_segmenttree.cpp
     - icon: ':warning:'
       path: src/data_structures/rolling_hash.cpp
       title: src/data_structures/rolling_hash.cpp
-    - icon: ':warning:'
-      path: src/data_structures/rolling_hashing64.cpp
-      title: src/data_structures/rolling_hashing64.cpp
     - icon: ':heavy_check_mark:'
       path: src/data_structures/segmenttree.cpp
       title: src/data_structures/segmenttree.cpp
-    - icon: ':warning:'
-      path: src/data_structures/segmenttree2D.cpp
-      title: src/data_structures/segmenttree2D.cpp
     - icon: ':warning:'
       path: src/data_structures/sqrt_decomposition.cpp
       title: src/data_structures/sqrt_decomposition.cpp
@@ -173,8 +153,8 @@ data:
       path: test/aoj/DSL_2_A.test.cpp
       title: test/aoj/DSL_2_A.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj/DSL_2_B_BIT.test.cpp
-      title: test/aoj/DSL_2_B_BIT.test.cpp
+      path: test/aoj/DSL_2_B_fenwick.test.cpp
+      title: test/aoj/DSL_2_B_fenwick.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/DSL_2_F.test.cpp
       title: test/aoj/DSL_2_F.test.cpp

@@ -8,24 +8,24 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"src/other/timer.cpp\"\n#include<chrono>\r\n\r\nclass Timer{\r\
-    \nprivate:\r\n    std::chrono::system_clock::time_point start_time, end_time;\r\
-    \npublic:\r\n    Timer():start_time(std::chrono::system_clock::now()){}\r\n  \
-    \  void start(){\r\n        start_time = std::chrono::system_clock::now();\r\n\
-    \    }\r\n    double elapsed(){\r\n        end_time = std::chrono::system_clock::now();\r\
-    \n        return static_cast<double>(std::chrono::duration_cast<std::chrono::milliseconds>(end_time-start_time).count());\r\
-    \n    }\r\n};\n"
-  code: "#include<chrono>\r\n\r\nclass Timer{\r\nprivate:\r\n    std::chrono::system_clock::time_point\
-    \ start_time, end_time;\r\npublic:\r\n    Timer():start_time(std::chrono::system_clock::now()){}\r\
-    \n    void start(){\r\n        start_time = std::chrono::system_clock::now();\r\
-    \n    }\r\n    double elapsed(){\r\n        end_time = std::chrono::system_clock::now();\r\
-    \n        return static_cast<double>(std::chrono::duration_cast<std::chrono::milliseconds>(end_time-start_time).count());\r\
-    \n    }\r\n};"
+  bundledCode: "#line 1 \"src/other/timer.cpp\"\n#include <chrono>\r\n\r\nclass Timer\
+    \ {\r\n  private:\r\n    std::chrono::system_clock::time_point start_time, end_time;\r\
+    \n\r\n  public:\r\n    Timer() : start_time(std::chrono::system_clock::now())\
+    \ {}\r\n    void start() {\r\n        start_time = std::chrono::system_clock::now();\r\
+    \n    }\r\n    double elapsed() {\r\n        end_time = std::chrono::system_clock::now();\r\
+    \n        return static_cast<double>(std::chrono::duration_cast<std::chrono::milliseconds>(end_time\
+    \ - start_time).count());\r\n    }\r\n};\n"
+  code: "#include <chrono>\r\n\r\nclass Timer {\r\n  private:\r\n    std::chrono::system_clock::time_point\
+    \ start_time, end_time;\r\n\r\n  public:\r\n    Timer() : start_time(std::chrono::system_clock::now())\
+    \ {}\r\n    void start() {\r\n        start_time = std::chrono::system_clock::now();\r\
+    \n    }\r\n    double elapsed() {\r\n        end_time = std::chrono::system_clock::now();\r\
+    \n        return static_cast<double>(std::chrono::duration_cast<std::chrono::milliseconds>(end_time\
+    \ - start_time).count());\r\n    }\r\n};"
   dependsOn: []
   isVerificationFile: false
   path: src/other/timer.cpp
   requiredBy: []
-  timestamp: '2020-04-10 09:39:28+09:00'
+  timestamp: '2023-09-16 13:08:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: src/other/timer.cpp
